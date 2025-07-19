@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6312551a51bf9434dae9e33a553e87c3, type: 3}
   m_Name: Tile 7
   m_EditorClassIdentifier: 
-  TileType: 0
+  TileType: 1
+  StepIndex: 7
   LongLength: 0
-  AppearTime: 6
-  RowIndex: 2
+  RowIndex: 1

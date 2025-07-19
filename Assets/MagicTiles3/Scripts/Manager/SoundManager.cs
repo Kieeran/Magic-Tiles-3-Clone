@@ -19,7 +19,12 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
-    public void PlayTheSong()
+    public void PlaySoundWithDelay(float delay)
+    {
+        Invoke(nameof(PlaySound), delay);
+    }
+
+    void PlaySound()
     {
         musicSource.clip = songClip;
         musicSource.loop = false;

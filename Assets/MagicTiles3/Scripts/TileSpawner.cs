@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ public class TileSpawner : MonoBehaviour
     public Dictionary<TileType, Tile> TilePrefabs;
 
     List<Transform> _rows;
-    float _ySpawn = 2500f;
+
+    // Tile _currentTile;
+    float _baseSpawnY = 1745f;
 
     void Awake()
     {
@@ -29,12 +32,12 @@ public class TileSpawner : MonoBehaviour
         {
             if (tile.GetType() == typeof(ShortTile))
             {
-                TilePrefabs.Add(TileType.ShortTile, tile);
+                TilePrefabs.Add(TileType.Short, tile);
             }
 
             else if (tile.GetType() == typeof(LongTile))
             {
-                TilePrefabs.Add(TileType.LongTile, tile);
+                TilePrefabs.Add(TileType.Long, tile);
             }
         }
 
@@ -43,6 +46,8 @@ public class TileSpawner : MonoBehaviour
         {
             _rows.Add(child);
         }
+
+        // _currentTile = null;
     }
 
     // void Update()
@@ -65,7 +70,11 @@ public class TileSpawner : MonoBehaviour
     public void Spawn(Tile_SO tile_SO)
     {
         Tile tile = Instantiate(TilePrefabs[tile_SO.TileType], _rows[tile_SO.RowIndex]);
-        tile.transform.localPosition = new Vector3(0, _ySpawn, 0);
+        tile.SetFallSpeed(LevelManager.Instance.GetFallSpeed());
+
+        tile.GetRectTransform().anchoredPosition = new Vector3(0, _baseSpawnY + 450f, 0);
+
         tile.ResetRectTransform();
+        Debug.Log($"Spawn tile at step {tile_SO.StepIndex}");
     }
 }

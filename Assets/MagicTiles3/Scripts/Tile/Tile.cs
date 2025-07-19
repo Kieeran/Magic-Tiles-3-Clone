@@ -6,6 +6,10 @@ public class Tile : MonoBehaviour
     protected RectTransform _tileRectTransform;
     protected Image _tileImage;
     protected bool _isTouched;
+    protected float _fallSpeed;
+
+    public void SetFallSpeed(float speed) { _fallSpeed = speed; }
+    public RectTransform GetRectTransform() { return _tileRectTransform; }
 
     protected virtual void Awake()
     {
@@ -30,14 +34,14 @@ public class Tile : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver()) return;
 
-        transform.position += new Vector3(0, -0.1f, 0);
+        _tileRectTransform.anchoredPosition += _fallSpeed * Time.deltaTime * Vector2.down;
 
         if (transform.localPosition.y < -1900f)
         {
             if (!_isTouched)
             {
                 Debug.Log("Game Over!");
-                GameManager.Instance.GameOver();
+                // GameManager.Instance.GameOver();
             }
         }
     }

@@ -717,6 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentLevel: {fileID: 11400000, guid: 6c78630739f823f419ca7bd93d034b7b, type: 2}
+  SpawnCoolDown: 0.5
 --- !u!1 &703216927
 GameObject:
   m_ObjectHideFlags: 0

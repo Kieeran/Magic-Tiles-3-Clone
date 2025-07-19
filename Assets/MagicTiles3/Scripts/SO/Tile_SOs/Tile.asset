@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tile
   m_EditorClassIdentifier: 
   TileType: 1
+  StepIndex: 0
   LongLength: 0
-  AppearTime: 1
   RowIndex: 0

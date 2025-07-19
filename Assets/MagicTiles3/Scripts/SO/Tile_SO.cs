@@ -2,15 +2,15 @@ using UnityEngine;
 
 public enum TileType
 {
-    LongTile,
-    ShortTile
+    Long,
+    Short
 }
 
 [CreateAssetMenu(fileName = "NewTile", menuName = "Tiles/Tile Data")]
 public class Tile_SO : ScriptableObject
 {
     public TileType TileType;
+    public int StepIndex;
     public float LongLength;
-    public float AppearTime;
     public int RowIndex;
 }
