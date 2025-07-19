@@ -534,8 +534,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1834152366}
-  - {fileID: 1201432240}
   - {fileID: 790559584}
+  - {fileID: 1201432240}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -929,7 +929,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a6c25310d9d92468a2560a0839ee5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TilePrefab: {fileID: 1942054861523077833, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
+  TilePrefabs:
+  - {fileID: 2303731079172790001, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
+  - {fileID: 5599856736549459497, guid: b4178cc8f4b33d847af326f9e20d9f7d, type: 3}
   SpawnCoolDown: 0.8
 --- !u!1 &1509165399
 GameObject:

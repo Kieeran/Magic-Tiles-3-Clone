@@ -1,16 +1,20 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Tile : MonoBehaviour, IPointerDownHandler
+public class Tile : MonoBehaviour
 {
-    RectTransform _tileRectTransform;
-    Image _tileImage;
+    protected RectTransform _tileRectTransform;
+    protected Image _tileImage;
 
-    void Awake()
+    protected virtual void Awake()
     {
         _tileRectTransform = GetComponent<RectTransform>();
         _tileImage = GetComponent<Image>();
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     public void ResetRectTransform()
@@ -19,15 +23,28 @@ public class Tile : MonoBehaviour, IPointerDownHandler
         _tileRectTransform.offsetMax = new Vector2(0, _tileRectTransform.offsetMax.y);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         transform.position += new Vector3(0, -0.1f, 0);
+
+        if (transform.localPosition.y < -3000f)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    protected void DecreaseAlpha()
     {
         Color color = Color.black;
         color.a = 0.8f;
         _tileImage.color = color;
+        Debug.Log("Aloo");
+    }
+
+    protected void ResetAlpha()
+    {
+        Color color = Color.black;
+        _tileImage.color = color;
+        Debug.Log("Olaa");
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
 {
-    public Tile TilePrefab;
+    public List<Tile> TilePrefabs;
     public float SpawnCoolDown = 2f;
 
     List<Transform> _rows;
@@ -27,8 +27,10 @@ public class RandomSpawn : MonoBehaviour
 
         _timer = 0;
 
+        int randomTileIndex = Random.Range(0, TilePrefabs.Count);
+
         int randomIndexRow = Random.Range(0, _rows.Count);
-        Tile tile = Instantiate(TilePrefab, _rows[randomIndexRow]);
+        Tile tile = Instantiate(TilePrefabs[randomTileIndex], _rows[randomIndexRow]);
         tile.transform.localPosition = new Vector3(0, _ySpawn, 0);
         tile.ResetRectTransform();
     }
