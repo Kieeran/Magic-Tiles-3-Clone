@@ -45,6 +45,8 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
         TouchTransform.sizeDelta = originSizeDelta;
         TouchEffect.gameObject.SetActive(true);
+
+        _isTouched = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)

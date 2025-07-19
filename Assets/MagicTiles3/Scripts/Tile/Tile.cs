@@ -5,11 +5,14 @@ public class Tile : MonoBehaviour
 {
     protected RectTransform _tileRectTransform;
     protected Image _tileImage;
+    protected bool _isTouched;
 
     protected virtual void Awake()
     {
         _tileRectTransform = GetComponent<RectTransform>();
         _tileImage = GetComponent<Image>();
+
+        _isTouched = false;
     }
 
     protected virtual void Start()
@@ -25,11 +28,17 @@ public class Tile : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (GameManager.Instance.IsGameOver()) return;
+
         transform.position += new Vector3(0, -0.1f, 0);
 
-        if (transform.localPosition.y < -3000f)
+        if (transform.localPosition.y < -1900f)
         {
-            Destroy(gameObject);
+            if (!_isTouched)
+            {
+                Debug.Log("Game Over!");
+                GameManager.Instance.GameOver();
+            }
         }
     }
 

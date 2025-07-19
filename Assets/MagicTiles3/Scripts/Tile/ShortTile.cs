@@ -10,6 +10,7 @@ public class ShortTile : Tile, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        _isTouched = true;
         DecreaseAlpha();
     }
 }
