@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomSpawn : MonoBehaviour
+public class TileSpawner : MonoBehaviour
 {
     public List<Tile> TilePrefabs;
     public float SpawnCoolDown = 2f;
