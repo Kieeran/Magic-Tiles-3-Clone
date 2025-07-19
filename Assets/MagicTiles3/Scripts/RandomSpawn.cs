@@ -22,6 +22,8 @@ public class RandomSpawn : MonoBehaviour
 
     void Update()
     {
+        if (!@GameManager.Instance.IsGameStart()) return;
+
         _timer += Time.deltaTime;
         if (_timer < SpawnCoolDown) return;
 

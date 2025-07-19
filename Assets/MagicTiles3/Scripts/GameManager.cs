@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Action OnGameOver;
+    bool _isGameStart;
     bool _isGameOver;
 
     void Awake()
@@ -24,6 +25,16 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
         Time.timeScale = 0;
         OnGameOver?.Invoke();
+    }
+
+    public void GameStart()
+    {
+        _isGameStart = true;
+    }
+
+    public bool IsGameStart()
+    {
+        return _isGameStart;
     }
 
     public bool IsGameOver()
