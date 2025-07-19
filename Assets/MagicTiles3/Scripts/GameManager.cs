@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         _isGameStart = true;
+        SoundManager.Instance.PlayTheSong();
     }
 
     public bool IsGameStart()
