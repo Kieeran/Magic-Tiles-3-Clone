@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
         Time.timeScale = 0;
+        StartCoroutine(GameRestart(2f));
         OnGameOver?.Invoke();
     }
 
@@ -40,5 +43,13 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver()
     {
         return _isGameOver;
+    }
+
+    IEnumerator GameRestart(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
+        Time.timeScale = 1f;
     }
 }
