@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -26,6 +28,7 @@ public class LevelManager : MonoBehaviour
     float _distanceToLine;
 
     Dictionary<Tile_SO, float> spawnTimes;
+    Dictionary<Tile_SO, float> earlySpawnTimes;
 
     public float GetFallSpeed() { return _fallSpeed; }
 
@@ -53,13 +56,68 @@ public class LevelManager : MonoBehaviour
         _currentTile_SO = CurrentLevel.Tiles[_currentIndexTile_SO];
 
         spawnTimes = new Dictionary<Tile_SO, float>();
+        earlySpawnTimes = new Dictionary<Tile_SO, float>();
 
         foreach (Tile_SO tile in CurrentLevel.Tiles)
         {
             float hitTime = tile.StepIndex * _stepDuration;
-            float spawnTime = Mathf.Max(hitTime - _fallTime, 0);
+            float spawnTime = hitTime - _fallTime;
 
-            spawnTimes.Add(tile, spawnTime);
+            if (spawnTime < 0)
+            {
+                earlySpawnTimes.Add(tile, -spawnTime);
+                Debug.Log($"Early spawn time: {spawnTime} at step {tile.StepIndex}");
+            }
+            else
+            {
+                spawnTimes.Add(tile, spawnTime);
+            }
+        }
+
+        // Get the earliest spawn time (most negative value originally).
+        // Since all times are negative, using Max() after removing the minus sign
+        // effectively gives us the largest negative (i.e., the earliest) time.
+        float earliestSpawnTime = earlySpawnTimes.Values.Max();
+
+        SoundManager.Instance.AudioStartDelay = earliestSpawnTime - 0.18f;
+        Debug.Log(earliestSpawnTime);
+
+        GameManager.Instance.OnGameStart += () =>
+        {
+            StartCoroutine(StartEarlyTiles());
+            Debug.Log("Spawn early");
+        };
+    }
+
+    IEnumerator StartEarlyTiles()
+    {
+        float timer = 0f;
+
+        while (timer < SoundManager.Instance.AudioStartDelay)
+        {
+            timer += Time.deltaTime;
+            UpdateTileSpawn(timer, earlySpawnTimes);
+            yield return null;
+        }
+    }
+
+    void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)
+    {
+        List<Tile_SO> tilesToRemove = new();
+        foreach (var entry in spawnTimes)
+        {
+            if (currentTime >= entry.Value)
+            {
+                // Debug.Log(entry.Value);
+                TileSpawner.Instance.Spawn(entry.Key);
+
+                tilesToRemove.Add(entry.Key);
+            }
+        }
+
+        foreach (var key in tilesToRemove)
+        {
+            spawnTimes.Remove(key);
         }
     }
 
@@ -69,14 +127,6 @@ public class LevelManager : MonoBehaviour
         if (_spawnAllTiles) return;
 
         float currentTime = SoundManager.Instance.musicSource.time;
-
-        foreach (var entry in spawnTimes)
-        {
-            if (currentTime >= entry.Value)
-            {
-                TileSpawner.Instance.Spawn(entry.Key);
-                spawnTimes.Remove(entry.Key);
-            }
-        }
+        UpdateTileSpawn(currentTime, spawnTimes);
     }
 }

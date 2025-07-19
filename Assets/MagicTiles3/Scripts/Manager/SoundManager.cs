@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource musicSource;
     public AudioClip songClip;
 
+    public float AudioStartDelay;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,9 +21,10 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
-    public void PlaySoundWithDelay(float delay)
+    public void PlaySoundWithDelay()
     {
-        Invoke(nameof(PlaySound), delay);
+        Invoke(nameof(PlaySound), AudioStartDelay);
+        Debug.Log($"Delay {AudioStartDelay} and play");
     }
 
     void PlaySound()

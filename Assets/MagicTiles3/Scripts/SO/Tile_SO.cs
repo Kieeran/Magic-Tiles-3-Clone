@@ -10,7 +10,7 @@ public enum TileType
 public class Tile_SO : ScriptableObject
 {
     public TileType TileType;
-    public int StepIndex;
+    public float StepIndex;
     public float LongLength;
     public int RowIndex;
 }

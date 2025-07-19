@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public Action OnGameStart;
     public Action OnGameOver;
     bool _isGameStart;
     bool _isGameOver;
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         _isGameStart = true;
-        SoundManager.Instance.PlaySoundWithDelay(0.5f);
+        OnGameStart?.Invoke();
+        SoundManager.Instance.PlaySoundWithDelay();
     }
 
     public bool IsGameStart()
