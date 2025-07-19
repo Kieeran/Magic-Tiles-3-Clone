@@ -1,22 +1,33 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerDownHandler
 {
-    RectTransform tileRectTransform;
+    RectTransform _tileRectTransform;
+    Image _tileImage;
 
     void Awake()
     {
-        tileRectTransform = GetComponent<RectTransform>();
+        _tileRectTransform = GetComponent<RectTransform>();
+        _tileImage = GetComponent<Image>();
     }
 
     public void ResetRectTransform()
     {
-        tileRectTransform.offsetMin = new Vector2(0, tileRectTransform.offsetMin.y);
-        tileRectTransform.offsetMax = new Vector2(0, tileRectTransform.offsetMax.y);
+        _tileRectTransform.offsetMin = new Vector2(0, _tileRectTransform.offsetMin.y);
+        _tileRectTransform.offsetMax = new Vector2(0, _tileRectTransform.offsetMax.y);
     }
 
     void Update()
     {
         transform.position += new Vector3(0, -0.1f, 0);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Color color = Color.black;
+        color.a = 0.8f;
+        _tileImage.color = color;
     }
 }

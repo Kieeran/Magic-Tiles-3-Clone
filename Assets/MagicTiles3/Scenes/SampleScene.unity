@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TilePrefab: {fileID: 1942054861523077833, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
-  SpawnCoolDown: 1
+  SpawnCoolDown: 0.8
 --- !u!1 &1581279718
 GameObject:
   m_ObjectHideFlags: 0
