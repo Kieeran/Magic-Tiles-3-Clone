@@ -11,6 +11,6 @@ public class Tile_SO : ScriptableObject
 {
     public TileType TileType;
     public float StepIndex;
-    public float LongLength;
+    public float StepLength;
     public int RowIndex;
 }

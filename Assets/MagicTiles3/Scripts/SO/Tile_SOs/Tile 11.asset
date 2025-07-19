@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6312551a51bf9434dae9e33a553e87c3, type: 3}
-  m_Name: Tile 8
+  m_Name: Tile 11
   m_EditorClassIdentifier: 
-  TileType: 1
-  StepIndex: 8
-  StepLength: 1
-  RowIndex: 2
+  TileType: 0
+  StepIndex: 11.2
+  StepLength: 2
+  RowIndex: 0

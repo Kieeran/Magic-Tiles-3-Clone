@@ -23,7 +23,6 @@ public class LevelManager : MonoBehaviour
 
     float _bpm = 130f;
     float _stepDuration;
-    // float _stepSpacingY = 900f;
     float _stepCountToLine = 2.5f;
     float _distanceToLine;
 
