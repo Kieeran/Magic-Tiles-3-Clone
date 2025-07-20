@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,11 @@ public class GameManager : MonoBehaviour
     bool _isGameStart;
     bool _isGameOver;
 
+    float _startTime;
+    float _earliestSpawnTime;
+    bool _isMusicOn = false;
+    public float Timer { get; private set; }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -21,6 +27,25 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         Application.targetFrameRate = 60;
+    }
+
+    public void SetEarliestSpawnTime(float earliestSpawnTime)
+    {
+        _earliestSpawnTime = earliestSpawnTime;
+        Timer = _earliestSpawnTime;
+    }
+
+    void Update()
+    {
+        if (!_isGameStart) return;
+
+        Timer = Time.realtimeSinceStartup - _startTime + _earliestSpawnTime;
+
+        if (!_isMusicOn && Timer >= 0)
+        {
+            SoundManager.Instance.PlaySound();
+            _isMusicOn = true;
+        }
     }
 
     public void GameOver()
@@ -35,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameStart = true;
         OnGameStart?.Invoke();
-        SoundManager.Instance.PlaySoundWithDelay();
+        _startTime = Time.realtimeSinceStartup;
     }
 
     public bool IsGameStart()

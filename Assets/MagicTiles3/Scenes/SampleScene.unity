@@ -2186,6 +2186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2055802566}
   songClip: {fileID: 8300000, guid: b547f67da5965114a8e077f786d6997f, type: 3}
+  AudioStartDelay: 0
 --- !u!82 &2055802566
 AudioSource:
   m_ObjectHideFlags: 0

@@ -7,8 +7,12 @@ public class Tile : MonoBehaviour
     protected Image _tileImage;
     protected bool _isTouched;
     protected float _fallSpeed;
+    protected float _spawnTime;
+    protected float _spawnY;
 
     public void SetFallSpeed(float speed) { _fallSpeed = speed; }
+    public void SetSpawnY(float y) { _spawnY = y; }
+    public void SetSpawnTime(float time) { _spawnTime = time; }
     public RectTransform GetRectTransform() { return _tileRectTransform; }
 
     protected virtual void Awake()
@@ -35,6 +39,11 @@ public class Tile : MonoBehaviour
         if (GameManager.Instance.IsGameOver()) return;
 
         _tileRectTransform.anchoredPosition += _fallSpeed * Time.deltaTime * Vector2.down;
+        // float currentMusicTime = SoundManager.Instance.musicSource.time;
+        // float timeSinceSpawn = currentMusicTime - _spawnTime;
+
+        // float newY = _spawnY - timeSinceSpawn * _fallSpeed;
+        // _tileRectTransform.anchoredPosition = new Vector2(_tileRectTransform.anchoredPosition.x, newY);
 
         if (transform.localPosition.y < -1900f)
         {

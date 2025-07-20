@@ -23,11 +23,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundWithDelay()
     {
-        Invoke(nameof(PlaySound), AudioStartDelay);
+        Invoke(nameof(PlaySound), AudioStartDelay - 0.5f);
         Debug.Log($"Delay {AudioStartDelay} and play");
     }
 
-    void PlaySound()
+    public void PlaySound()
     {
         musicSource.clip = songClip;
         musicSource.loop = false;

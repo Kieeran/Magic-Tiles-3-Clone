@@ -12,7 +12,7 @@ public class TileSpawner : MonoBehaviour
     List<Transform> _rows;
 
     float _stepSpacingY = 900f;
-    float _baseSpawnY = 1745f;
+    float _baseSpawnY = 2750f;
 
     void Awake()
     {
@@ -48,10 +48,11 @@ public class TileSpawner : MonoBehaviour
         }
     }
 
-    public void Spawn(Tile_SO tile_SO)
+    public void Spawn(Tile_SO tile_SO, float spawnTime)
     {
         Tile tile = Instantiate(TilePrefabs[tile_SO.TileType], _rows[tile_SO.RowIndex]);
         tile.SetFallSpeed(LevelManager.Instance.GetFallSpeed());
+        tile.SetSpawnTime(spawnTime);
         RectTransform rect = tile.GetRectTransform();
 
         if (tile_SO.StepLength > 1 && tile_SO.TileType == TileType.Long)
@@ -61,6 +62,7 @@ public class TileSpawner : MonoBehaviour
         }
         tile.ResetRectTransform();
         rect.anchoredPosition = new Vector3(0, _baseSpawnY + rect.sizeDelta.y / 2, 0);
+        tile.SetSpawnY(_baseSpawnY + rect.sizeDelta.y / 2);
         Debug.Log($"Spawn tile at step {tile_SO.StepIndex}, pos: {rect.anchoredPosition}");
     }
 }
