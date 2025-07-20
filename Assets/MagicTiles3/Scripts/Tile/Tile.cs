@@ -38,12 +38,12 @@ public class Tile : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver()) return;
 
-        _tileRectTransform.anchoredPosition += _fallSpeed * Time.deltaTime * Vector2.down;
-        // float currentMusicTime = SoundManager.Instance.musicSource.time;
-        // float timeSinceSpawn = currentMusicTime - _spawnTime;
+        // _tileRectTransform.anchoredPosition += _fallSpeed * Time.deltaTime * Vector2.down;
+        float currentTime = GameManager.Instance.Timer;
+        float timeSinceSpawn = currentTime - _spawnTime;
 
-        // float newY = _spawnY - timeSinceSpawn * _fallSpeed;
-        // _tileRectTransform.anchoredPosition = new Vector2(_tileRectTransform.anchoredPosition.x, newY);
+        float newY = _spawnY - timeSinceSpawn * _fallSpeed;
+        _tileRectTransform.anchoredPosition = new Vector2(_tileRectTransform.anchoredPosition.x, newY);
 
         if (transform.localPosition.y < -1900f)
         {
