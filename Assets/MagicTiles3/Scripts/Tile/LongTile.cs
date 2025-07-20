@@ -27,7 +27,8 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
         {
             _holdTime += Time.deltaTime;
 
-            TouchTransform.sizeDelta = new Vector2(TouchTransform.sizeDelta.x, TouchTransform.sizeDelta.y + 27f);
+            // TouchTransform.sizeDelta = new Vector2(TouchTransform.sizeDelta.x, TouchTransform.sizeDelta.y + 27f);
+            TouchTransform.sizeDelta += _fallSpeed * 1.2f * Time.deltaTime * Vector2.up;
 
             if (TouchTransform.sizeDelta.y >= tileHeight)
             {

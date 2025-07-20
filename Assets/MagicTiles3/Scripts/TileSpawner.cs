@@ -52,16 +52,15 @@ public class TileSpawner : MonoBehaviour
     {
         Tile tile = Instantiate(TilePrefabs[tile_SO.TileType], _rows[tile_SO.RowIndex]);
         tile.SetFallSpeed(LevelManager.Instance.GetFallSpeed());
+        RectTransform rect = tile.GetRectTransform();
 
-        tile.GetRectTransform().anchoredPosition = new Vector3(0, _baseSpawnY + tile.GetRectTransform().sizeDelta.y / 2, 0);
-
-        if (tile_SO.StepLength > 1)
+        if (tile_SO.StepLength > 1 && tile_SO.TileType == TileType.Long)
         {
             float height = tile_SO.StepLength * _stepSpacingY;
-            tile.GetRectTransform().sizeDelta = new Vector2(tile.GetRectTransform().sizeDelta.x, height);
+            rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
         }
-
         tile.ResetRectTransform();
-        Debug.Log($"Spawn tile at step {tile_SO.StepIndex}");
+        rect.anchoredPosition = new Vector3(0, _baseSpawnY + rect.sizeDelta.y / 2, 0);
+        Debug.Log($"Spawn tile at step {tile_SO.StepIndex}, pos: {rect.anchoredPosition}");
     }
 }

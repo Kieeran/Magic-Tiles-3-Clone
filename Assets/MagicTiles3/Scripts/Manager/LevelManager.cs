@@ -90,11 +90,11 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator StartEarlyTiles()
     {
-        float timer = 0f;
+        float timer = SoundManager.Instance.AudioStartDelay;
 
-        while (timer < SoundManager.Instance.AudioStartDelay)
+        while (timer > 0)
         {
-            timer += Time.deltaTime;
+            timer -= Time.deltaTime;
             UpdateTileSpawn(timer, earlySpawnTimes);
             yield return null;
         }
@@ -105,7 +105,7 @@ public class LevelManager : MonoBehaviour
         List<Tile_SO> tilesToRemove = new();
         foreach (var entry in spawnTimes)
         {
-            if (currentTime >= entry.Value)
+            if (currentTime <= entry.Value)
             {
                 // Debug.Log(entry.Value);
                 TileSpawner.Instance.Spawn(entry.Key);
