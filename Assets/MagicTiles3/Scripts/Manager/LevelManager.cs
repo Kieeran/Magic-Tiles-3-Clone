@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     float _fallTime;
     float _fallSpeed;
 
-    float _bpm = 190f;
+    float _bpm = 205f;
     float _stepDuration;
     float _stepCountToLine = 3.5f;
     float _distanceToLine;

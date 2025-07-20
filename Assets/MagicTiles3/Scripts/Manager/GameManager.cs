@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         Timer = Time.realtimeSinceStartup - _startTime + _earliestSpawnTime;
 
-        if (!_isMusicOn && Timer >= -0.5f)
+        if (!_isMusicOn && Timer >= -0.55f)
         {
             SoundManager.Instance.PlaySound();
             _isMusicOn = true;
