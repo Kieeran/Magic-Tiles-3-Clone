@@ -91,6 +91,8 @@ public class UIManager : MonoBehaviour
 
     public void UnlockOrientation()
     {
+        Screen.orientation = ScreenOrientation.AutoRotation;
+
         Screen.autorotateToPortrait = true;
         Screen.autorotateToPortraitUpsideDown = true;
         Screen.autorotateToLandscapeLeft = true;
