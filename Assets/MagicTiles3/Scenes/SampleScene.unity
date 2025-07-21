@@ -1028,9 +1028,8 @@ GameObject:
   - component: {fileID: 1201432242}
   - component: {fileID: 1201432241}
   - component: {fileID: 1201432243}
-  - component: {fileID: 1201432244}
   m_Layer: 5
-  m_Name: RowsContainer
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1123,22 +1122,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1201432244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201432239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a6c25310d9d92468a2560a0839ee5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tilePrefabs:
-  - {fileID: 2303731079172790001, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
-  - {fileID: 5599856736549459497, guid: b4178cc8f4b33d847af326f9e20d9f7d, type: 3}
-  StepSpacingY: 0
 --- !u!1 &1301756241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,6 +1806,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834152365}
   m_CullTransparentMesh: 1
+--- !u!1 &1834162232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1834162233}
+  - component: {fileID: 1834162234}
+  m_Layer: 5
+  m_Name: Poolings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1834162233
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834162232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2068137708}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1834162234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834162232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaac176bdb659b488d9ddd6a9a324dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1850730348
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,8 +2225,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2068137708}
+  - component: {fileID: 2068137709}
   m_Layer: 5
-  m_Name: Container
+  m_Name: Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2213,6 +2245,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1834162233}
   - {fileID: 1201432240}
   m_Father: {fileID: 626998599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2221,6 +2254,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2068137709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068137707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2a6c25310d9d92468a2560a0839ee5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefabs:
+  - {fileID: 2303731079172790001, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
+  - {fileID: 5599856736549459497, guid: b4178cc8f4b33d847af326f9e20d9f7d, type: 3}
+  StepSpacingY: 0
 --- !u!1 &2138007904
 GameObject:
   m_ObjectHideFlags: 0

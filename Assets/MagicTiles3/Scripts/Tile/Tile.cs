@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
+    public TileType TileType;
+
     protected RectTransform _tileRectTransform;
     protected Image _tileImage;
     protected bool _isTouched;
