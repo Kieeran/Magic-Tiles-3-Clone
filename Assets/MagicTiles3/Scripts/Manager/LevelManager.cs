@@ -69,10 +69,10 @@ public class LevelManager : MonoBehaviour
 
     void Init()
     {
-        HitLineY = UIManager.Instance.MainCanvas.VerticleLine.anchoredPosition.y;
+        HitLineY = UIManager.Instance.MainCanvas.VerticleLineY;
         FallTime = _stepCountToLine * _stepDuration;
 
-        if (Screen.height > Screen.width)
+        if (UIManager.Instance.IsPortrait())
         {
             BaseSpawnY = Screen.height * 1.5f;
         }

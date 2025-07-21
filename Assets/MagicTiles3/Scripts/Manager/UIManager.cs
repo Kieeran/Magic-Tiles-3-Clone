@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
         UpdateLayout();
     }
 
+    public bool IsPortrait()
+    {
+        return Screen.height > Screen.width;
+    }
+
     void InitUILayouts()
     {
         InitPortraitLayout();
