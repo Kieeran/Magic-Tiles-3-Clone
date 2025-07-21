@@ -7,8 +7,8 @@ public class TilePooling : MonoBehaviour
     public Dictionary<TileType, Tile> TilePrefabs { get; private set; }
 
     Dictionary<TileType, List<Tile>> _tilePools;
-    [SerializeField] RectTransform _poolContainer;
-    int _poolSize = 5;
+    [SerializeField] Transform _poolContainer;
+    int _poolSize = 4;
 
     void Awake()
     {
@@ -55,6 +55,7 @@ public class TilePooling : MonoBehaviour
 
         if (pool.Count <= 0)
         {
+            Debug.Log($"Create more {tileType} tiles");
             AddNewTiles(tileType);
         }
 
@@ -69,5 +70,6 @@ public class TilePooling : MonoBehaviour
         TileType type = tile.TileType;
         tile.gameObject.SetActive(false);
         _tilePools[type].Add(tile);
+        tile.transform.SetParent(_poolContainer);
     }
 }

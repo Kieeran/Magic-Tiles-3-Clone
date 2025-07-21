@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,14 +9,22 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
     public Image TouchEffect;
     public RectTransform TouchTransform;
 
-    float tileHeight;
     bool _isHolding = false;
     Vector2 originSizeDelta;
 
     protected override void Start()
     {
         originSizeDelta = TouchTransform.sizeDelta;
-        tileHeight = _tileRectTransform.sizeDelta.y;
+
+        UIManager.Instance.OnOrientationPortrait += () =>
+        {
+            originSizeDelta = TouchTransform.sizeDelta;
+        };
+
+        UIManager.Instance.OnOrientationLandscape += () =>
+        {
+            originSizeDelta = TouchTransform.sizeDelta;
+        };
     }
 
     protected override void Update()
@@ -26,7 +35,7 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
         {
             TouchTransform.sizeDelta += _fallSpeed * Time.deltaTime * Vector2.up;
 
-            if (TouchTransform.sizeDelta.y >= tileHeight)
+            if (TouchTransform.rect.height > _tileRectTransform.rect.height)
             {
                 TouchEffect.gameObject.SetActive(false);
                 _isHolding = false;
@@ -48,8 +57,13 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         _isHolding = false;
+    }
 
-        // TouchTransform.sizeDelta = originSizeDelta;
-        // TouchEffect.gameObject.SetActive(false);
+    protected override void ReturnTile()
+    {
+        base.ReturnTile();
+
+        TouchTransform.sizeDelta = originSizeDelta;
+        TouchEffect.gameObject.SetActive(false);
     }
 }

@@ -47,7 +47,9 @@ public class Tile : MonoBehaviour
         float newY = _spawnY - timeSinceSpawn * _fallSpeed;
         _tileRectTransform.anchoredPosition = new Vector2(_tileRectTransform.anchoredPosition.x, newY);
 
-        if (transform.localPosition.y < -1900f)
+        Vector3 tileScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, _tileRectTransform.position);
+
+        if (tileScreenPos.y <= UIManager.Instance.MainCanvas.LoseLineScreenPos.y)
         {
             if (!_isTouched)
             {
@@ -55,6 +57,19 @@ public class Tile : MonoBehaviour
                 // GameManager.Instance.GameOver();
             }
         }
+
+        if (tileScreenPos.y <= UIManager.Instance.MainCanvas.ReturnTileLineScreenPos.y)
+        {
+            ReturnTile();
+        }
+    }
+
+    protected virtual void ReturnTile()
+    {
+        _isTouched = false;
+
+        ResetAlpha();
+        TileSpawner.Instance.TilePooling.ReturnTile(this);
     }
 
     protected void DecreaseAlpha()
@@ -62,13 +77,11 @@ public class Tile : MonoBehaviour
         Color color = Color.black;
         color.a = 0.8f;
         _tileImage.color = color;
-        Debug.Log("Aloo");
     }
 
     protected void ResetAlpha()
     {
-        Color color = Color.black;
+        Color color = Color.white;
         _tileImage.color = color;
-        Debug.Log("Olaa");
     }
 }

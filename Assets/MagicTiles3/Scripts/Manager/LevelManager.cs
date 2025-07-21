@@ -84,14 +84,14 @@ public class LevelManager : MonoBehaviour
         TileSpawner.Instance.StepSpacingY = _distanceToLine / _stepCountToLine;
         FallSpeed = _distanceToLine / FallTime;
 
-        Debug.Log(_distanceToLine);
-        Debug.Log(HitLineY);
-        Debug.Log(TileSpawner.Instance.StepSpacingY);
+        // Debug.Log(_distanceToLine);
+        // Debug.Log(HitLineY);
+        // Debug.Log(TileSpawner.Instance.StepSpacingY);
     }
 
     void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)
     {
-        Debug.Log(currentTime);
+        // Debug.Log(currentTime);
         List<Tile_SO> tilesToRemove = new();
         foreach (var entry in spawnTimes)
         {

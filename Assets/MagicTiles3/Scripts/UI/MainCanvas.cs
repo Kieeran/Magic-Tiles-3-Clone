@@ -5,6 +5,11 @@ public class MainCanvas : MonoBehaviour
     public Transform GameOverPopUp;
     public RectTransform Container;
     public RectTransform VerticleLine;
+    [SerializeField] RectTransform _loseLine;
+    [SerializeField] RectTransform _returnTileLine;
+
+    public Vector3 LoseLineScreenPos { get; private set; }
+    public Vector3 ReturnTileLineScreenPos { get; private set; }
 
     float _verticleLineYPortrait;
     float _verticleLineYLandscape;
@@ -29,6 +34,9 @@ public class MainCanvas : MonoBehaviour
             VerticleLineY = _verticleLineYLandscape;
             VerticleLine.anchoredPosition = new Vector2(VerticleLine.anchoredPosition.x, VerticleLineY);
         }
+
+        LoseLineScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, _loseLine.position);
+        ReturnTileLineScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, _returnTileLine.position);
     }
 
     void Start()

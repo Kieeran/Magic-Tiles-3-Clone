@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92038e5a5a489484a93dec5b5f6097ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TileType: 0
   holdThreshold: 0.1
   TouchEffect: {fileID: 7484016273167776831}
   TouchTransform: {fileID: 629101747130182956}
