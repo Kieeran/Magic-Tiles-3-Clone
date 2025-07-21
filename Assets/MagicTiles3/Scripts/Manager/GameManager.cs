@@ -94,5 +94,7 @@ public class GameManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.buildIndex);
         Time.timeScale = 1f;
+
+        UIManager.Instance.UnlockOrientation();
     }
 }

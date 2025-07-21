@@ -89,6 +89,14 @@ public class UIManager : MonoBehaviour
         Screen.autorotateToLandscapeRight = false;
     }
 
+    public void UnlockOrientation()
+    {
+        Screen.autorotateToPortrait = true;
+        Screen.autorotateToPortraitUpsideDown = true;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+    }
+
     public bool IsPortrait()
     {
         return Screen.height > Screen.width;
