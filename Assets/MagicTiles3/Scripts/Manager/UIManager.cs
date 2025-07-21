@@ -34,6 +34,38 @@ public class UIManager : MonoBehaviour
 
         InitUILayouts();
         UpdateLayout();
+
+        GameManager.Instance.OnGameStart += () =>
+        {
+            LockCurrentOrientation();
+        };
+    }
+
+    void LockCurrentOrientation()
+    {
+        switch (Screen.orientation)
+        {
+            case ScreenOrientation.Portrait:
+                Screen.orientation = ScreenOrientation.Portrait;
+                break;
+            case ScreenOrientation.LandscapeLeft:
+                Screen.orientation = ScreenOrientation.LandscapeLeft;
+                break;
+            case ScreenOrientation.LandscapeRight:
+                Screen.orientation = ScreenOrientation.LandscapeRight;
+                break;
+            case ScreenOrientation.PortraitUpsideDown:
+                Screen.orientation = ScreenOrientation.PortraitUpsideDown;
+                break;
+            default:
+                Screen.orientation = ScreenOrientation.Portrait; // fallback
+                break;
+        }
+
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
     }
 
     public bool IsPortrait()
