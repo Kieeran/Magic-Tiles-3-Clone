@@ -9,6 +9,7 @@ public class MainCanvas : MonoBehaviour
     public RectTransform VerticleLine;
     public RectTransform LeftContainer;
     public RectTransform RightContainer;
+    public RectTransform ProgressBar;
 
     [SerializeField] RectTransform _loseLine;
     [SerializeField] RectTransform _returnTileLine;

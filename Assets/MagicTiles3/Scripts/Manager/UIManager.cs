@@ -36,6 +36,14 @@ public class UIManager : MonoBehaviour
     // Landscape
     Vector2 _sizeDataLandscapeRightContainer;
 
+    //============================ProgressBar============================
+    RectTransform _progressBar;
+    // Portrait
+    Vector2 _sizeDataPortraitProgressBar;
+
+    // Landscape
+    Vector2 _sizeDataLandscapeProgressBar;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -94,6 +102,7 @@ public class UIManager : MonoBehaviour
         _container = MainCanvas.Container;
         _leftContainer = MainCanvas.LeftContainer;
         _rightContainer = MainCanvas.RightContainer;
+        _progressBar = MainCanvas.ProgressBar;
     }
 
     void InitPortraitLayout()
@@ -107,6 +116,9 @@ public class UIManager : MonoBehaviour
 
         // RightContainer
         _sizeDataPortraitRightContainer = new Vector2(490f, 275f);
+
+        // ProgressBar
+        _sizeDataPortraitProgressBar = new Vector2(1600f, 146f);
     }
 
     void InitLandscapeLayout()
@@ -120,6 +132,9 @@ public class UIManager : MonoBehaviour
 
         // RightContainer
         _sizeDataLandscapeRightContainer = new Vector2(240f, 175f);
+
+        // ProgressBar
+        _sizeDataLandscapeProgressBar = new Vector2(610f, 52f);
     }
 
     void Update()
@@ -155,6 +170,8 @@ public class UIManager : MonoBehaviour
             _leftContainer.sizeDelta = _sizeDataPortraitLeftContainer;
             _rightContainer.sizeDelta = _sizeDataPortraitRightContainer;
 
+            _progressBar.sizeDelta = _sizeDataPortraitProgressBar;
+
             OnOrientationPortrait?.Invoke();
         }
         else
@@ -166,6 +183,8 @@ public class UIManager : MonoBehaviour
 
             _leftContainer.sizeDelta = _sizeDataLandscapeLeftContainer;
             _rightContainer.sizeDelta = _sizeDataLandscapeRightContainer;
+
+            _progressBar.sizeDelta = _sizeDataLandscapeProgressBar;
 
             OnOrientationLandscape?.Invoke();
         }
