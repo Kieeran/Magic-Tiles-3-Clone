@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
         // Debug.Log(TileSpawner.Instance.StepSpacingY);
     }
 
-    public void HandleNonTileTouch(Vector2 screenPosition, int rowIndex)
+    public bool HandleNonTileTouch(Vector2 screenPosition, int rowIndex)
     {
         Tile closestTile = null;
         float closestDistance = float.MaxValue;
@@ -114,6 +114,8 @@ public class LevelManager : MonoBehaviour
 
         if (closestTile != null)
         {
+            if (!IsScreenYInsideTileYBounds(closestTile, screenPosition)) return false;
+
             Debug.Log($"Closest tile: {closestTile.name} at distance: {closestDistance} at row {rowIndex}");
             Debug.Log(closestTile.TileRectTransform.anchoredPosition);
 
@@ -123,6 +125,22 @@ public class LevelManager : MonoBehaviour
                 closestTile.TileRectTransform.sizeDelta.y
             );
         }
+
+        return true;
+    }
+
+    bool IsScreenYInsideTileYBounds(Tile tile, Vector2 screenPos)
+    {
+        Vector3[] corners = new Vector3[4];
+        tile.TileRectTransform.GetWorldCorners(corners);
+
+        Vector2 bottom = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[0]);
+        Vector2 top = RectTransformUtility.WorldToScreenPoint(Camera.main, corners[1]);
+
+        float minY = Mathf.Min(bottom.y, top.y);
+        float maxY = Mathf.Max(bottom.y, top.y);
+
+        return screenPos.y >= minY && screenPos.y <= maxY;
     }
 
     void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)

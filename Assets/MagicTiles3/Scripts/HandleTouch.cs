@@ -54,8 +54,8 @@ public class HandleTouch : MonoBehaviour
                     rowIndex = ui.gameObject.transform.GetSiblingIndex();
                 }
             }
-            LevelManager.Instance.HandleNonTileTouch(position, rowIndex);
-            GameManager.Instance.GameOver();
+            if (LevelManager.Instance.HandleNonTileTouch(position, rowIndex))
+                GameManager.Instance.GameOver();
         }
 
         else

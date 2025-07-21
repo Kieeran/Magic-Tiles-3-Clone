@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
         Time.timeScale = 0;
-        StartCoroutine(GameRestart(2f));
+        StartCoroutine(GameRestart(3f));
         OnGameOver?.Invoke();
     }
 

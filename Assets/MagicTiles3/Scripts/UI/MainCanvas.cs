@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MainCanvas : MonoBehaviour
@@ -43,7 +44,7 @@ public class MainCanvas : MonoBehaviour
     {
         GameManager.Instance.OnGameOver += () =>
         {
-            GameOverPopUp.gameObject.SetActive(true);
+            StartCoroutine(OpenGameOverPopUp(1f));
         };
 
         UIManager.Instance.OnOrientationPortrait += () =>
@@ -57,5 +58,11 @@ public class MainCanvas : MonoBehaviour
             VerticleLineY = _verticleLineYLandscape;
             VerticleLine.anchoredPosition = new Vector2(VerticleLine.anchoredPosition.x, VerticleLineY);
         };
+    }
+
+    IEnumerator OpenGameOverPopUp(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        GameOverPopUp.gameObject.SetActive(true);
     }
 }
