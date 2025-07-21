@@ -8,10 +8,10 @@ public class TileSpawner : MonoBehaviour
 
     [SerializeField] List<Tile> _tilePrefabs;
     public Dictionary<TileType, Tile> TilePrefabs;
-
+    public float StepSpacingY;
+    float _stepSpacingYPortrait = 900f;
+    float _stepSpacingYLandScape = 450f;
     List<Transform> _rows;
-
-    float _stepSpacingY = 900f;
     float _baseSpawnY = 2750f;
 
     void Awake()
@@ -23,6 +23,8 @@ public class TileSpawner : MonoBehaviour
         }
 
         Instance = this;
+
+        StepSpacingY = _stepSpacingYPortrait;
     }
 
     void Start()
@@ -46,20 +48,34 @@ public class TileSpawner : MonoBehaviour
         {
             _rows.Add(child);
         }
+
+        UIManager.Instance.OnOrientationPortrait += () =>
+        {
+            StepSpacingY = _stepSpacingYPortrait;
+        };
+
+        UIManager.Instance.OnOrientationLandscape += () =>
+        {
+            StepSpacingY = _stepSpacingYLandScape;
+        };
     }
 
     public void Spawn(Tile_SO tile_SO, float spawnTime)
     {
         Tile tile = Instantiate(TilePrefabs[tile_SO.TileType], _rows[tile_SO.RowIndex]);
-        tile.SetFallSpeed(LevelManager.Instance.GetFallSpeed());
+        tile.SetFallSpeed(LevelManager.Instance.FallSpeed);
         tile.SetSpawnTime(spawnTime);
         RectTransform rect = tile.GetRectTransform();
 
-        if (tile_SO.StepLength > 1 && tile_SO.TileType == TileType.Long)
-        {
-            float height = tile_SO.StepLength * _stepSpacingY;
-            rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
-        }
+        // if (tile_SO.StepLength > 1 && tile_SO.TileType == TileType.Long)
+        // {
+        //     float height = tile_SO.StepLength * StepSpacingY;
+        //     rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
+        // }
+
+        float height = tile_SO.StepLength * StepSpacingY;
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
+
         tile.ResetRectTransform();
         rect.anchoredPosition = new Vector3(0, _baseSpawnY + rect.sizeDelta.y / 2, 0);
         tile.SetSpawnY(_baseSpawnY + rect.sizeDelta.y / 2);
