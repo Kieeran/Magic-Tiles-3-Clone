@@ -7,6 +7,9 @@ public class MainCanvas : MonoBehaviour
     public Transform GameWinPopUp;
     public RectTransform Container;
     public RectTransform VerticleLine;
+    public RectTransform LeftContainer;
+    public RectTransform RightContainer;
+
     [SerializeField] RectTransform _loseLine;
     [SerializeField] RectTransform _returnTileLine;
 

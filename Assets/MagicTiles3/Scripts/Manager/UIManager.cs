@@ -20,6 +20,22 @@ public class UIManager : MonoBehaviour
     Vector2 _anchorMinLandscapeContainer;
     Vector2 _anchorMaxLandscapeContainer;
 
+    //============================LeftContainer============================
+    RectTransform _leftContainer;
+    // Portrait
+    Vector2 _sizeDataPortraitLeftContainer;
+
+    // Landscape
+    Vector2 _sizeDataLandscapeLeftContainer;
+
+    //============================RightContainer============================
+    RectTransform _rightContainer;
+    // Portrait
+    Vector2 _sizeDataPortraitRightContainer;
+
+    // Landscape
+    Vector2 _sizeDataLandscapeRightContainer;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -76,6 +92,8 @@ public class UIManager : MonoBehaviour
         InitLandscapeLayout();
 
         _container = MainCanvas.Container;
+        _leftContainer = MainCanvas.LeftContainer;
+        _rightContainer = MainCanvas.RightContainer;
     }
 
     void InitPortraitLayout()
@@ -83,6 +101,12 @@ public class UIManager : MonoBehaviour
         // Container
         _anchorMinPortraitContainer = new Vector2(0, 0);
         _anchorMaxPortraitContainer = new Vector2(1, 1);
+
+        // LeftContainer
+        _sizeDataPortraitLeftContainer = new Vector2(850f, 255f);
+
+        // RightContainer
+        _sizeDataPortraitRightContainer = new Vector2(490f, 275f);
     }
 
     void InitLandscapeLayout()
@@ -90,6 +114,12 @@ public class UIManager : MonoBehaviour
         // Container
         _anchorMinLandscapeContainer = new Vector2(0.5f, 0);
         _anchorMaxLandscapeContainer = new Vector2(0.5f, 1);
+
+        // LeftContainer
+        _sizeDataLandscapeLeftContainer = new Vector2(465f, 185f);
+
+        // RightContainer
+        _sizeDataLandscapeRightContainer = new Vector2(240f, 175f);
     }
 
     void Update()
@@ -122,6 +152,9 @@ public class UIManager : MonoBehaviour
             _container.offsetMin = Vector2.zero;
             _container.offsetMax = Vector2.zero;
 
+            _leftContainer.sizeDelta = _sizeDataPortraitLeftContainer;
+            _rightContainer.sizeDelta = _sizeDataPortraitRightContainer;
+
             OnOrientationPortrait?.Invoke();
         }
         else
@@ -130,6 +163,9 @@ public class UIManager : MonoBehaviour
             _container.anchorMin = _anchorMinLandscapeContainer;
             _container.anchorMax = _anchorMaxLandscapeContainer;
             _container.sizeDelta = new Vector2(Screen.width * 0.38f, _container.sizeDelta.y);
+
+            _leftContainer.sizeDelta = _sizeDataLandscapeLeftContainer;
+            _rightContainer.sizeDelta = _sizeDataLandscapeRightContainer;
 
             OnOrientationLandscape?.Invoke();
         }
