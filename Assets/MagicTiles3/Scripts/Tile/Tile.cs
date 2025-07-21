@@ -38,7 +38,6 @@ public class Tile : MonoBehaviour
     {
         if (GameManager.Instance.IsGameOver()) return;
 
-        // _tileRectTransform.anchoredPosition += _fallSpeed * Time.deltaTime * Vector2.down;
         float currentTime = GameManager.Instance.Timer;
         float timeSinceSpawn = currentTime - _spawnTime;
 

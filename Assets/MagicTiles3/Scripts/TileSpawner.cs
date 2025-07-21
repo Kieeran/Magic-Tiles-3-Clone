@@ -52,12 +52,6 @@ public class TileSpawner : MonoBehaviour
         tile.SetSpawnTime(spawnTime);
         RectTransform rect = tile.GetRectTransform();
 
-        // if (tile_SO.StepLength > 1 && tile_SO.TileType == TileType.Long)
-        // {
-        //     float height = tile_SO.StepLength * StepSpacingY;
-        //     rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
-        // }
-
         float height = tile_SO.StepLength * StepSpacingY;
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
