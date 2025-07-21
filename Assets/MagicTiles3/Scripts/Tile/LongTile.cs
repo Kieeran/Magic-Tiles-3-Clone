@@ -46,6 +46,7 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (GameManager.Instance.IsGameOver()) return;
         if (_isTouched) return;
 
         _isHolding = true;
@@ -56,6 +57,7 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (GameManager.Instance.IsGameOver()) return;
         _isHolding = false;
     }
 

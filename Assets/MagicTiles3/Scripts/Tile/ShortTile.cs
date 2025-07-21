@@ -10,6 +10,7 @@ public class ShortTile : Tile, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (GameManager.Instance.IsGameOver()) return;
         _isTouched = true;
         DecreaseAlpha();
     }

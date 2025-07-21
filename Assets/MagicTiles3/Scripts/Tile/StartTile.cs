@@ -18,6 +18,7 @@ public class StartTile : MonoBehaviour
     void Start()
     {
         _rect = GetComponent<RectTransform>();
+
         UIManager.Instance.OnOrientationPortrait += () =>
         {
             _rect.sizeDelta = new Vector2(_rect.sizeDelta.x, TileSpawner.Instance.StepSpacingY);
@@ -29,5 +30,8 @@ public class StartTile : MonoBehaviour
             _rect.sizeDelta = new Vector2(_rect.sizeDelta.x, TileSpawner.Instance.StepSpacingY);
             _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, UIManager.Instance.MainCanvas.VerticleLine.anchoredPosition.y);
         };
+
+        _rect.sizeDelta = new Vector2(_rect.sizeDelta.x, TileSpawner.Instance.StepSpacingY);
+        _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, UIManager.Instance.MainCanvas.VerticleLine.anchoredPosition.y);
     }
 }
