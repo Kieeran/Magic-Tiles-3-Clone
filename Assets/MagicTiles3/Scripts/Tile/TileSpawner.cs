@@ -54,4 +54,19 @@ public class TileSpawner : MonoBehaviour
         missTile.anchoredPosition = new Vector2(missTile.anchoredPosition.x, spawnY);
         missTile.sizeDelta = new Vector2(missTile.sizeDelta.x, height);
     }
+
+    public bool HasAnyTile()
+    {
+        foreach (Transform row in Rows)
+        {
+            foreach (Transform child in row)
+            {
+                if (child.CompareTag("Tile"))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

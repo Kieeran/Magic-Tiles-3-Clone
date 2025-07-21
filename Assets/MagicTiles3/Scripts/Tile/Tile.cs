@@ -54,7 +54,7 @@ public class Tile : MonoBehaviour
             if (!_isTouched)
             {
                 Debug.Log("Game Over!");
-                // GameManager.Instance.GameOver();
+                GameManager.Instance.GameOver();
             }
         }
 

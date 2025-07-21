@@ -4,6 +4,7 @@ using UnityEngine;
 public class MainCanvas : MonoBehaviour
 {
     public Transform GameOverPopUp;
+    public Transform GameWinPopUp;
     public RectTransform Container;
     public RectTransform VerticleLine;
     [SerializeField] RectTransform _loseLine;
@@ -47,6 +48,11 @@ public class MainCanvas : MonoBehaviour
             StartCoroutine(OpenGameOverPopUp(1f));
         };
 
+        GameManager.Instance.OnGameWin += () =>
+        {
+            StartCoroutine(OpenGameWinPopUp(1f));
+        };
+
         UIManager.Instance.OnOrientationPortrait += () =>
         {
             VerticleLineY = _verticleLineYPortrait;
@@ -64,5 +70,11 @@ public class MainCanvas : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
         GameOverPopUp.gameObject.SetActive(true);
+    }
+
+    IEnumerator OpenGameWinPopUp(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        GameWinPopUp.gameObject.SetActive(true);
     }
 }

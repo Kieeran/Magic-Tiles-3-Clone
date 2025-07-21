@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public Action OnGameStart;
     public Action OnGameOver;
+    public Action OnGameWin;
     bool _isGameStart;
     bool _isGameOver;
+    bool _isGameWin;
 
     float _startTime;
     float _earliestSpawnTime;
@@ -48,6 +50,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GameStart()
+    {
+        _isGameStart = true;
+        OnGameStart?.Invoke();
+        _startTime = Time.realtimeSinceStartup;
+    }
+
     public void GameOver()
     {
         _isGameOver = true;
@@ -56,11 +65,12 @@ public class GameManager : MonoBehaviour
         OnGameOver?.Invoke();
     }
 
-    public void GameStart()
+    public void GameWin()
     {
-        _isGameStart = true;
-        OnGameStart?.Invoke();
-        _startTime = Time.realtimeSinceStartup;
+        _isGameWin = true;
+        Time.timeScale = 0;
+        StartCoroutine(GameRestart(3f));
+        OnGameWin?.Invoke();
     }
 
     public bool IsGameStart()
@@ -71,6 +81,11 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver()
     {
         return _isGameOver;
+    }
+
+    public bool IsGameWin()
+    {
+        return _isGameWin;
     }
 
     IEnumerator GameRestart(float delay)

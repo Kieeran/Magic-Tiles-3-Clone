@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
     public Level_SO CurrentLevel;
 
-    bool _spawnAllTiles;
+    bool _hasAnyTile = true;
 
     // =========================
     public float BaseSpawnY { get; private set; }
@@ -34,26 +34,12 @@ public class LevelManager : MonoBehaviour
         Instance = this;
 
         _stepDuration = 60f / _bpm;
-        _spawnAllTiles = false;
     }
 
     void Start()
     {
-        Init();
-
         _spawnTimes = new Dictionary<Tile_SO, float>();
-        foreach (Tile_SO tile in CurrentLevel.Tiles)
-        {
-            float hitTime = tile.StepIndex * _stepDuration;
-            float spawnTime = hitTime - FallTime;
-
-            _spawnTimes.Add(tile, spawnTime);
-            Debug.Log($"Spawn time: {spawnTime} at step {tile.StepIndex}");
-        }
-
-        float earliestSpawnTime = _spawnTimes.Values.Min();
-        GameManager.Instance.SetEarliestSpawnTime(earliestSpawnTime);
-        Debug.Log(earliestSpawnTime);
+        Init();
 
         UIManager.Instance.OnOrientationPortrait += () =>
         {
@@ -83,6 +69,20 @@ public class LevelManager : MonoBehaviour
         _distanceToLine = BaseSpawnY + math.abs(HitLineY);
         TileSpawner.Instance.StepSpacingY = _distanceToLine / _stepCountToLine;
         FallSpeed = _distanceToLine / FallTime;
+
+        //============================================================================
+        foreach (Tile_SO tile in CurrentLevel.Tiles)
+        {
+            float hitTime = tile.StepIndex * _stepDuration;
+            float spawnTime = hitTime - FallTime;
+
+            _spawnTimes[tile] = spawnTime;
+            Debug.Log($"Spawn time: {spawnTime} at step {tile.StepIndex}");
+        }
+
+        float earliestSpawnTime = _spawnTimes.Values.Min();
+        GameManager.Instance.SetEarliestSpawnTime(earliestSpawnTime);
+        Debug.Log(earliestSpawnTime);
 
         // Debug.Log(_distanceToLine);
         // Debug.Log(HitLineY);
@@ -145,6 +145,12 @@ public class LevelManager : MonoBehaviour
 
     void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)
     {
+        if (spawnTimes.Count <= 0 && !TileSpawner.Instance.HasAnyTile())
+        {
+            _hasAnyTile = false;
+            return;
+        }
+
         // Debug.Log(currentTime);
         List<Tile_SO> tilesToRemove = new();
         foreach (var entry in spawnTimes)
@@ -167,7 +173,11 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.IsGameStart()) return;
-        if (_spawnAllTiles) return;
+        if (!_hasAnyTile && !GameManager.Instance.IsGameWin())
+        {
+            GameManager.Instance.GameWin();
+            return;
+        }
 
         float currentTime = GameManager.Instance.Timer;
         UpdateTileSpawn(currentTime, _spawnTimes);
