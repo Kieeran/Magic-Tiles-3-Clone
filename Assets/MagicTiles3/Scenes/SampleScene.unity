@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 367409194}
   m_Layer: 5
   m_Name: Row4
-  m_TagString: Untagged
+  m_TagString: Row
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1516,7 +1516,7 @@ GameObject:
   - component: {fileID: 1581279720}
   m_Layer: 5
   m_Name: Row2
-  m_TagString: Untagged
+  m_TagString: Row
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1742,7 +1742,7 @@ GameObject:
   - component: {fileID: 1728787679}
   m_Layer: 5
   m_Name: Row3
-  m_TagString: Untagged
+  m_TagString: Row
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1931,6 +1931,7 @@ MonoBehaviour:
   _tilePrefabs:
   - {fileID: 2303731079172790001, guid: 305ebbc7bd89352429f6f5cadcce8ece, type: 3}
   - {fileID: 5599856736549459497, guid: b4178cc8f4b33d847af326f9e20d9f7d, type: 3}
+  MissTile: {fileID: 8129222476389946447, guid: 02e83638408ab8948b61b6a3b5e1aeb9, type: 3}
   _poolContainer: {fileID: 1834162233}
 --- !u!1 &1850730348
 GameObject:
@@ -2569,7 +2570,7 @@ GameObject:
   - component: {fileID: 2145267237}
   m_Layer: 5
   m_Name: Row1
-  m_TagString: Untagged
+  m_TagString: Row
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

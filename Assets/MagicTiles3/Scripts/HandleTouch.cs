@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,6 +7,8 @@ public class HandleTouch : MonoBehaviour
 {
     void Update()
     {
+        if (!GameManager.Instance.IsGameStart()) return;
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -25,7 +28,7 @@ public class HandleTouch : MonoBehaviour
 #endif
     }
 
-    bool IsPointerOverUI(Vector2 position)
+    void IsPointerOverUI(Vector2 position)
     {
         PointerEventData eventData = new(EventSystem.current)
         {
@@ -35,22 +38,29 @@ public class HandleTouch : MonoBehaviour
         var results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
+        int rowIndex = -1;
         if (results.Count > 0)
         {
             foreach (var ui in results)
             {
                 if (ui.gameObject.CompareTag("Tile"))
                 {
-                    Debug.Log("Tile");
+                    // Debug.Log("Tile");
+                    return;
+                }
+
+                if (ui.gameObject.CompareTag("Row"))
+                {
+                    rowIndex = ui.gameObject.transform.GetSiblingIndex();
                 }
             }
+            LevelManager.Instance.HandleNonTileTouch(position, rowIndex);
+            GameManager.Instance.GameOver();
         }
 
         else
         {
-            Debug.Log("Not on UI");
+            // Debug.Log("Not on UI");
         }
-
-        return results.Count > 0;
     }
 }

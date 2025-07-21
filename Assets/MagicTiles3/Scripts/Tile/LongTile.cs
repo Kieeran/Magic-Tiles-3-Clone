@@ -35,7 +35,7 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
         {
             TouchTransform.sizeDelta += _fallSpeed * Time.deltaTime * Vector2.up;
 
-            if (TouchTransform.rect.height > _tileRectTransform.rect.height)
+            if (TouchTransform.rect.height > TileRectTransform.rect.height)
             {
                 TouchEffect.gameObject.SetActive(false);
                 _isHolding = false;

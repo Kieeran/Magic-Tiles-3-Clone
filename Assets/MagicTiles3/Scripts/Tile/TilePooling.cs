@@ -6,6 +6,8 @@ public class TilePooling : MonoBehaviour
     [SerializeField] List<Tile> _tilePrefabs;
     public Dictionary<TileType, Tile> TilePrefabs { get; private set; }
 
+    public RectTransform MissTile;
+
     Dictionary<TileType, List<Tile>> _tilePools;
     [SerializeField] Transform _poolContainer;
     int _poolSize = 4;

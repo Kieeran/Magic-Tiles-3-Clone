@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
 {
     public TileType TileType;
 
-    protected RectTransform _tileRectTransform;
+    public RectTransform TileRectTransform { get; protected set; }
     protected Image _tileImage;
     protected bool _isTouched;
     protected float _fallSpeed;
@@ -16,11 +16,11 @@ public class Tile : MonoBehaviour
     public void SetFallSpeed(float speed) { _fallSpeed = speed; }
     public void SetSpawnY(float y) { _spawnY = y; }
     public void SetSpawnTime(float time) { _spawnTime = time; }
-    public RectTransform GetRectTransform() { return _tileRectTransform; }
+    public RectTransform GetRectTransform() { return TileRectTransform; }
 
     protected virtual void Awake()
     {
-        _tileRectTransform = GetComponent<RectTransform>();
+        TileRectTransform = GetComponent<RectTransform>();
         _tileImage = GetComponent<Image>();
 
         _isTouched = false;
@@ -33,8 +33,8 @@ public class Tile : MonoBehaviour
 
     public void ResetRectTransform()
     {
-        _tileRectTransform.offsetMin = new Vector2(0, _tileRectTransform.offsetMin.y);
-        _tileRectTransform.offsetMax = new Vector2(0, _tileRectTransform.offsetMax.y);
+        TileRectTransform.offsetMin = new Vector2(0, TileRectTransform.offsetMin.y);
+        TileRectTransform.offsetMax = new Vector2(0, TileRectTransform.offsetMax.y);
     }
 
     protected virtual void Update()
@@ -45,9 +45,9 @@ public class Tile : MonoBehaviour
         float timeSinceSpawn = currentTime - _spawnTime;
 
         float newY = _spawnY - timeSinceSpawn * _fallSpeed;
-        _tileRectTransform.anchoredPosition = new Vector2(_tileRectTransform.anchoredPosition.x, newY);
+        TileRectTransform.anchoredPosition = new Vector2(TileRectTransform.anchoredPosition.x, newY);
 
-        Vector3 tileScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, _tileRectTransform.position);
+        Vector3 tileScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, TileRectTransform.position);
 
         if (tileScreenPos.y <= UIManager.Instance.MainCanvas.LoseLineScreenPos.y)
         {

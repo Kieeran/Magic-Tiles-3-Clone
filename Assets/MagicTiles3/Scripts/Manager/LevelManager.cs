@@ -89,6 +89,42 @@ public class LevelManager : MonoBehaviour
         // Debug.Log(TileSpawner.Instance.StepSpacingY);
     }
 
+    public void HandleNonTileTouch(Vector2 screenPosition, int rowIndex)
+    {
+        Tile closestTile = null;
+        float closestDistance = float.MaxValue;
+        for (int i = 0; i < TileSpawner.Instance.Rows.Count; i++)
+        {
+            foreach (Transform child in TileSpawner.Instance.Rows[i])
+            {
+                if (child.gameObject.CompareTag("Tile"))
+                {
+                    Tile tile = child.GetComponent<Tile>();
+                    Vector2 tileScreenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, tile.TileRectTransform.position);
+
+                    float distance = Vector2.Distance(tileScreenPos, screenPosition);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestTile = tile;
+                    }
+                }
+            }
+        }
+
+        if (closestTile != null)
+        {
+            Debug.Log($"Closest tile: {closestTile.name} at distance: {closestDistance} at row {rowIndex}");
+            Debug.Log(closestTile.TileRectTransform.anchoredPosition);
+
+            TileSpawner.Instance.SpawnMissTile(
+                rowIndex,
+                closestTile.TileRectTransform.anchoredPosition.y,
+                closestTile.TileRectTransform.sizeDelta.y
+            );
+        }
+    }
+
     void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)
     {
         // Debug.Log(currentTime);
