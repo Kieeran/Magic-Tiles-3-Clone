@@ -27,10 +27,7 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
-
-        Screen.orientation = ScreenOrientation.Portrait;
 
         InitUILayouts();
         UpdateLayout();
