@@ -10,7 +10,6 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
     float tileHeight;
     bool _isHolding = false;
-    float _holdTime = 0f;
     Vector2 originSizeDelta;
 
     protected override void Start()
@@ -25,10 +24,7 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
         if (_isHolding)
         {
-            _holdTime += Time.deltaTime;
-
-            // TouchTransform.sizeDelta = new Vector2(TouchTransform.sizeDelta.x, TouchTransform.sizeDelta.y + 27f);
-            TouchTransform.sizeDelta += _fallSpeed * 1.2f * Time.deltaTime * Vector2.up;
+            TouchTransform.sizeDelta += _fallSpeed * Time.deltaTime * Vector2.up;
 
             if (TouchTransform.sizeDelta.y >= tileHeight)
             {
@@ -41,21 +37,19 @@ public class LongTile : Tile, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _isHolding = true;
-        _holdTime = 0f;
+        if (_isTouched) return;
 
+        _isHolding = true;
         TouchTransform.sizeDelta = originSizeDelta;
         TouchEffect.gameObject.SetActive(true);
-
         _isTouched = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         _isHolding = false;
-        _holdTime = 0f;
 
-        TouchTransform.sizeDelta = originSizeDelta;
-        TouchEffect.gameObject.SetActive(false);
+        // TouchTransform.sizeDelta = originSizeDelta;
+        // TouchEffect.gameObject.SetActive(false);
     }
 }
