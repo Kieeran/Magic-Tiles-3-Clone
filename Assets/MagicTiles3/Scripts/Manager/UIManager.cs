@@ -19,7 +19,6 @@ public class UIManager : MonoBehaviour
     // Landscape
     Vector2 _anchorMinLandscapeContainer;
     Vector2 _anchorMaxLandscapeContainer;
-    float _sizeDeltaXLandscapeContainer;
 
     void Awake()
     {
@@ -30,6 +29,8 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
+
+        Screen.orientation = ScreenOrientation.Portrait;
 
         InitUILayouts();
         UpdateLayout();
@@ -55,7 +56,6 @@ public class UIManager : MonoBehaviour
         // Container
         _anchorMinLandscapeContainer = new Vector2(0.5f, 0);
         _anchorMaxLandscapeContainer = new Vector2(0.5f, 1);
-        _sizeDeltaXLandscapeContainer = 1041f;
     }
 
     void Update()
@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
             // Landscape
             _container.anchorMin = _anchorMinLandscapeContainer;
             _container.anchorMax = _anchorMaxLandscapeContainer;
-            _container.sizeDelta = new Vector2(_sizeDeltaXLandscapeContainer, _container.sizeDelta.y);
+            _container.sizeDelta = new Vector2(Screen.width * 0.38f, _container.sizeDelta.y);
 
             OnOrientationLandscape?.Invoke();
         }

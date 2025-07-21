@@ -9,10 +9,7 @@ public class TileSpawner : MonoBehaviour
     [SerializeField] List<Tile> _tilePrefabs;
     public Dictionary<TileType, Tile> TilePrefabs;
     public float StepSpacingY;
-    float _stepSpacingYPortrait = 900f;
-    float _stepSpacingYLandScape = 450f;
     List<Transform> _rows;
-    float _baseSpawnY = 2750f;
 
     void Awake()
     {
@@ -23,8 +20,6 @@ public class TileSpawner : MonoBehaviour
         }
 
         Instance = this;
-
-        StepSpacingY = _stepSpacingYPortrait;
     }
 
     void Start()
@@ -48,16 +43,6 @@ public class TileSpawner : MonoBehaviour
         {
             _rows.Add(child);
         }
-
-        UIManager.Instance.OnOrientationPortrait += () =>
-        {
-            StepSpacingY = _stepSpacingYPortrait;
-        };
-
-        UIManager.Instance.OnOrientationLandscape += () =>
-        {
-            StepSpacingY = _stepSpacingYLandScape;
-        };
     }
 
     public void Spawn(Tile_SO tile_SO, float spawnTime)
@@ -77,8 +62,8 @@ public class TileSpawner : MonoBehaviour
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
         tile.ResetRectTransform();
-        rect.anchoredPosition = new Vector3(0, _baseSpawnY + rect.sizeDelta.y / 2, 0);
-        tile.SetSpawnY(_baseSpawnY + rect.sizeDelta.y / 2);
+        rect.anchoredPosition = new Vector3(0, LevelManager.Instance.BaseSpawnY + rect.sizeDelta.y / 2, 0);
+        tile.SetSpawnY(LevelManager.Instance.BaseSpawnY + rect.sizeDelta.y / 2);
         Debug.Log($"Spawn tile at step {tile_SO.StepIndex}, pos: {rect.anchoredPosition}");
     }
 }

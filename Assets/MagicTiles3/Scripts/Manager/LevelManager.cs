@@ -18,9 +18,9 @@ public class LevelManager : MonoBehaviour
     public float FallSpeed { get; private set; }
 
     float _bpm = 205f;
-    public float StepDuration { get; private set; }
-    public float StepCountToLine { get; private set; }
-    public float DistanceToLine { get; private set; }
+    float _stepCountToLine = 3.5f;
+    float _stepDuration;
+    float _distanceToLine;
 
     Dictionary<Tile_SO, float> _spawnTimes;
 
@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
 
         Instance = this;
 
-        StepDuration = 60f / _bpm;
+        _stepDuration = 60f / _bpm;
         _spawnAllTiles = false;
     }
 
@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
         _spawnTimes = new Dictionary<Tile_SO, float>();
         foreach (Tile_SO tile in CurrentLevel.Tiles)
         {
-            float hitTime = tile.StepIndex * StepDuration;
+            float hitTime = tile.StepIndex * _stepDuration;
             float spawnTime = hitTime - FallTime;
 
             _spawnTimes.Add(tile, spawnTime);
@@ -69,14 +69,25 @@ public class LevelManager : MonoBehaviour
 
     void Init()
     {
-        BaseSpawnY = Screen.height + TileSpawner.Instance.StepSpacingY;
         HitLineY = UIManager.Instance.MainCanvas.VerticleLine.anchoredPosition.y;
+        FallTime = _stepCountToLine * _stepDuration;
 
-        DistanceToLine = math.abs(BaseSpawnY) + math.abs(HitLineY);
-        StepCountToLine = DistanceToLine / TileSpawner.Instance.StepSpacingY;
+        if (Screen.height > Screen.width)
+        {
+            BaseSpawnY = Screen.height * 1.5f;
+        }
+        else
+        {
+            BaseSpawnY = Screen.height;
+        }
 
-        FallTime = StepCountToLine * StepDuration;
-        FallSpeed = DistanceToLine / FallTime;
+        _distanceToLine = BaseSpawnY + math.abs(HitLineY);
+        TileSpawner.Instance.StepSpacingY = _distanceToLine / _stepCountToLine;
+        FallSpeed = _distanceToLine / FallTime;
+
+        Debug.Log(_distanceToLine);
+        Debug.Log(HitLineY);
+        Debug.Log(TileSpawner.Instance.StepSpacingY);
     }
 
     void UpdateTileSpawn(float currentTime, Dictionary<Tile_SO, float> spawnTimes)
